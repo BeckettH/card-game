@@ -1,0 +1,22 @@
+#main {
+  display: flex;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.column {
+  width: 25%;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 120px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

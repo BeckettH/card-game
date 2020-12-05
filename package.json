@@ -1,0 +1,14 @@
+{
+  "name": "card-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logic.js",
+  "scripts": {
+    "start": "browserify js/logic.js > js/bundle.js"
+  },
+  "author": "Beckett Hanan",
+  "license": "MIT",
+  "dependencies": {
+    "browserify": "^17.0.0"
+  }
+}
