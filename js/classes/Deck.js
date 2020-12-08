@@ -7,11 +7,10 @@ class Deck {
 
   // shuffles the deck - using the Fisher-Yates Shuffle here
   shuffle() {
-    // this.deck = await this.cardsPromise;
     let temp;
     let card = this.deck.length;
     let randomNum;
-  
+
     // while there remain elements to shuffle…
     while (card) {
       // pick one of the elements we have left
