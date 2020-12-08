@@ -1,13 +1,13 @@
 /* eslint-disable no-await-in-loop */
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 const Card = require('./classes/Card');
 
-const { readdirSync } = fs;
+// const { readdirSync } = fs;
 
 // collects and organizes the images into an array of objects with one card object per image
 const getImages = () => {
-  const cards = [];
+  let cards = [];
   const source = './images';
   // make an array of the inner folder names
   const categoryFolders = ['armor', 'food', 'hat', 'shoe', 'weapon'];
@@ -30,6 +30,8 @@ const getImages = () => {
       cards.push(card);
     }
   }
+  // add a second copy of all the cards - otherwise there won't be any duplicates to match!
+  cards = [...cards, ...cards];
   return cards;
 };
 
