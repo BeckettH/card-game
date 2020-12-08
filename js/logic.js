@@ -2,7 +2,6 @@ const deckObject = require('./classes/Deck');
 
 const { deck } = deckObject;
 deckObject.shuffle();
-console.log(deck);
 
 // this lets us tie the original type from the Card instance to the DOM element for the card
 const typeMap = new WeakMap();
@@ -13,7 +12,6 @@ let clicks = 0;
 
 const buildCharacter = (card) => {
   const cardType = typeMap.get(card);
-  console.log(`card type is ${cardType} and card image is ${card.children[0].src}`);
   const img = card.children[0].src;
 
   switch (cardType) {
@@ -49,7 +47,7 @@ const buildCharacter = (card) => {
       }
       break;
     default:
-      console.log('unknown image selected');
+      console.error('unknown image selected');
   }
 };
 
@@ -74,7 +72,6 @@ const hide = (card, cache) => {
 
 // when the cards don't match, we use this to flip them back over so images are hidden
 const flip = (card, cache) => {
-  console.log(`card is ${card} and cache is ${cache}`);
   cache.classList.remove('showing');
   card.classList.remove('showing');
 };
@@ -89,7 +86,6 @@ const handleClick = (card) => {
   card.classList.add('showing');
   // add the click to our counter
   clicks += 1;
-  console.log(clicks, cache);
   // if it's an odd click, it's the first click of two, so save the card
   if (clicks % 2 === 1) {
     cache = card;
