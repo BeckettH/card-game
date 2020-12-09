@@ -1,53 +1,28 @@
-const deckObject = require('./classes/Deck');
+const deck = require('./classes/Deck');
 
-const { deck } = deckObject;
-deckObject.shuffle();
+const { typeMap } = deck;
 
-// this lets us tie the original type from the Card instance to the DOM element for the card
-const typeMap = new WeakMap();
 // this is to keep track of how many character pieces the player has collected
 let characterCount = 0;
+
 // this is to keep track of clicks on cards in the matching area
 let clicks = 0;
 
+// build the character based on the matches the player gets
 const buildCharacter = (card) => {
   const cardType = typeMap.get(card);
+  const cardName = card.children[0].alt;
   const img = card.children[0].src;
 
-  switch (cardType) {
-    case 'hat':
-      // if the block to show the hat doesn't have an image yet...
-      if (!document.querySelector('#hat').children[0]) {
-        document.querySelector('#hat').innerHTML = `<img src='${img}' class='icon-image' alt='${card.name}' />`;
-        characterCount += 1;
-      }
-      break;
-    case 'weapon':
-      if (!document.querySelector('#weapon').children[0]) {
-        document.querySelector('#weapon').innerHTML = `<img src='${img}' class='icon-image' alt='${card.name}' />`;
-        characterCount += 1;
-      }
-      break;
-    case 'armor':
-      if (!document.querySelector('#armor').children[0]) {
-        document.querySelector('#armor').innerHTML = `<img src='${img}' class='icon-image' alt='${card.name}' />`;
-        characterCount += 1;
-      }
-      break;
-    case 'food':
-      if (!document.querySelector('#food').children[0]) {
-        document.querySelector('#food').innerHTML = `<img src='${img}' class='icon-image' alt='${card.name}' />`;
-        characterCount += 1;
-      }
-      break;
-    case 'shoe':
-      if (!document.querySelector('#shoe').children[0]) {
-        document.querySelector('#shoe').innerHTML = `<img src='${img}' class='icon-image' alt='${card.name}' />`;
-        characterCount += 1;
-      }
-      break;
-    default:
+  if (cardType === 'hat' || cardType === 'weapon' || cardType === 'armor' || cardType === 'food' || cardType === 'shoe') {
+    // if the block to show the hat doesn't have an image yet...
+    if (!document.querySelector(`#${cardType}`).children[0]) {
+      // then add it to the character section in the right spot
+      document.querySelector(`#${cardType}`).innerHTML = `<img src='${img}' class='icon-image' alt='${cardName}' />`;
+      characterCount += 1;
+    } else {
       console.error('unknown image selected');
+    }
   }
 };
 
@@ -81,6 +56,7 @@ let cache;
 // grab the counter div we want to show number of moves in
 const movesCounter = document.querySelector('#move-counter');
 
+// this handles clicks on cards that aren't showing yet
 const handleClick = (card) => {
   // show the image on the card
   card.classList.add('showing');
@@ -111,33 +87,22 @@ const handleClick = (card) => {
   }
 };
 
-// grab the div we want to display cards in
-const container = document.querySelector('#card-box');
+// shuffle and then deal the deck
+deck.shuffle();
+deck.deal();
 
-for (let i = 0; i < deck.length; i += 1) {
-  const card = deck[i];
-  // create a div for each card
-  const div = document.createElement('div');
-  div.classList.add('card');
+// add event listeners to all the cards - I'd rather do this in the Deck deal method, but this works for now
+// ran into issues with exporting handleClick, otherwise I could handle it there
+const cardDivs = document.querySelectorAll('.card');
+console.log(cardDivs);
 
-  // find a way to swap this out so it only has the image w/ alt text when it's flipped over
-  // and then have alt text that just says "blue back of card [i]" otherwise
-  div.innerHTML = `<img src='${card.image}' alt='card ${i + 1} is ${card.name}' />`;
-
+for (let i = 0; i < cardDivs.length; i += 1) {
   // add event listener to tell us when this card is clicked
-  div.addEventListener('click', (event) => {
+  cardDivs[i].addEventListener('click', (event) => {
     // only handle the click if the card is not already showing
     if (!event.currentTarget.classList.contains('showing')) {
+      console.log(JSON.stringify(handleClick));
       handleClick(event.currentTarget);
     }
   });
-
-  // add hidden property to keep the card div connected to the javascript card's
-  // type property after we put it on the DOM
-  typeMap.set(div, card.type);
-
-  container.appendChild(div);
 }
-
-// build the character based on the matches the player gets
-

@@ -3,8 +3,6 @@
 const path = require('path');
 const Card = require('./classes/Card');
 
-// const { readdirSync } = fs;
-
 // collects and organizes the images into an array of objects with one card object per image
 const getImages = () => {
   let cards = [];
@@ -25,7 +23,7 @@ const getImages = () => {
       // type is the name of the folder it's in
       const type = categoryFolders[i];
       // and flipped starts out as false
-      const card = new Card(name, image, type, false);
+      const card = new Card(name, image, type);
       // add it to our array
       cards.push(card);
     }
