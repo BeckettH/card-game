@@ -1,4 +1,4 @@
-# card-game
+# Build Your Hero Matching Game
 
 This is a matching game with a twist! You flip over cards two at a time to try and match up the pictures, but for the first match you get in each category - hats, weapons, armor, food, and shoes - that piece of equipment gets added to your character.
 
