@@ -81,12 +81,13 @@ h3 {
   border: 1px solid #a9a5a5;
 }
 
-/* for the moves counter block */
+/* for the right sidebar */
 #display {
   width: 35%;
   margin: 15px;
 }
 
+/* for the moves counter */
 #moves {
   display: flex;
   align-items: center;
